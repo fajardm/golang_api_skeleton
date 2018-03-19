@@ -1,0 +1,26 @@
+version: '3'
+services:
+  db:
+    container_name: golang_api_skeleton_db
+    image: mysql
+    ports:
+      - 3306
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=secret
+      - MYSQL_USER=secret
+      - MYSQL_PASSWORD=secret
+  api:
+    container_name: golang_api_skeleton
+    build: .
+    image: golang_api_skeleton:golang_api_skeleton
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    links:
+      - db
+    restart: always
+    expose:
+      - 3000
